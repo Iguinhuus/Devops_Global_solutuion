@@ -1,4 +1,4 @@
-🏥 Sistema de Cadastro Odontológico - Spring Boot + MongoDB + Azure DevOps
+🏥 Evacuação e Rotas Seguras em Situações de Risco- Spring Boot + MongoDB + Azure DevOps
 Este projeto é uma aplicação web construída com Java e Spring Boot, focada no gerenciamento de médicos e pacientes. Os dados são armazenados em um banco de dados MongoDB Atlas na nuvem e a aplicação é implementada automaticamente no Azure App Service através de uma pipeline de CI/CD no Azure DevOps.
 
 🚀 Tecnologias Empregadas
