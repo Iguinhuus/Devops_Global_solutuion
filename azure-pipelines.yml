@@ -1,0 +1,85 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+      - minharelease
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - name: rm
+    value: rm554227
+  - name: location
+    value: eastus
+  - name: resourceGroup
+    value: rg-SafeRoute
+  - name: service-plan
+    value: plan-SafeRoute
+  - name: app-name
+    value: SafeRoute-$(rm)
+  - name: runtime
+    value: JAVA:17-java17
+  - name: sku
+    value: F1
+  - name: nome-artefato
+    value: SafeRoute
+
+stages:
+  - stage: CriarInfra
+    jobs:
+      - job: criaWebApp
+        displayName: Criar ou atualizar o Serviço de Aplicativo
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'MyAzureSubscription'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az group create --location $(location) --name $(resourceGroup)
+                az appservice plan create -g $(resourceGroup) -n $(service-plan) --is-linux --sku $(sku)
+                az webapp create -g $(resourceGroup) -p $(service-plan) -n $(app-name) --runtime "$(runtime)"
+
+  - stage: BuildApp
+    jobs:
+      - job: buildWebApp
+        displayName: Realizar o Build do App com Gradle
+        steps:
+          - script: |
+              chmod +x gradlew
+              ./gradlew build -x test
+            displayName: 'Build com Gradle wrapper (sem testes)'
+
+          - task: CopyFiles@2
+            displayName: 'Copiar o .jar gerado'
+            inputs:
+              SourceFolder: '$(System.DefaultWorkingDirectory)/build/libs'
+              Contents: '*.jar'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publicar artefato do Build'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+
+  - stage: DeployApp
+    jobs:
+      - job: DeployWebApp
+        displayName: Deploy no Serviço de Aplicativo
+        steps:
+          - task: DownloadBuildArtifacts@1
+            displayName: 'Baixar artefato gerado'
+            inputs:
+              buildType: 'current'
+              downloadPath: '$(System.DefaultWorkingDirectory)'
+
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy com Gradle .jar'
+            inputs:
+              azureSubscription: 'MyAzureSubscription'
+              appType: 'webAppLinux'
+              WebAppName: $(app-name)
+              packageForLinux: '$(System.DefaultWorkingDirectory)/drop/*.jar'
