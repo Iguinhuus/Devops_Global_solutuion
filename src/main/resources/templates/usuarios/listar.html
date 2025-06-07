@@ -231,7 +231,7 @@
 <div class="container main-content-area">
     <div class="list-header d-flex justify-content-between align-items-center">
         <h2 class="list-title">Gerenciamento de Usuários</h2>
-        <a href="/novo-cadastro-usuario" class="btn btn-add-new">
+        <a href="/usuarios/novo" class="btn btn-add-new">
             <i class="fas fa-user-plus icon-plus-margin"></i> Adicionar Novo
         </a>
     </div>
@@ -252,10 +252,10 @@
                 <td data-label="Endereço de E-mail" th:text="${usuario.email}">joao.silva@exemplo.com</td>
                 <td data-label="Contato Telefônico" th:text="${usuario.telefone}">(11) 98765-4321</td>
                 <td class="text-end" data-label="Operações">
-                    <a th:href="@{'/usuario/modificar/' + ${usuario.id}}" class="btn btn-warning btn-action-table btn-edit me-2">
+                    <a th:href="@{'/usuarios/editar/' + ${usuario.id}}" class="btn btn-warning btn-action-table btn-edit me-2">
                         <i class="fas fa-edit icon-btn-spacing"></i> Editar
                     </a>
-                    <a th:href="@{'/usuario/remover/' + ${usuario.id}}" class="btn btn-danger btn-action-table btn-delete">
+                    <a th:href="@{'/usuarios/excluir/' + ${usuario.id}}" class="btn btn-danger btn-action-table btn-delete">
                         <i class="fas fa-trash-alt icon-btn-spacing"></i> Excluir
                     </a>
                 </td>
