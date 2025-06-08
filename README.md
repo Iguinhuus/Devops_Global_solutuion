@@ -1,7 +1,8 @@
-🌍 Sistema de Evacuação e Roteamento Seguro
+Sistema de Evacuação e Roteamento Seguro
+
 Este projeto apresenta uma aplicação web desenvolvida em Java com Spring Boot, focada em otimizar o. A aplicação utiliza o MongoDB Atlas para persistir os dados na nuvem, e o deployment é realizado no Azure App Service com a automação proporcionada pela pipeline de CI/CD configurada no Azure DevOps.
 
-🚀 Tecnologias Utilizadas
+Tecnologias Utilizadas
 Java 17: Linguagem utilizada para o desenvolvimento da aplicação.
 
 Spring Boot 3: Framework utilizado para construção do backend.
@@ -29,7 +30,7 @@ Crie uma pipeline que aponte para o repositório do GitHub.
 Verifique a existência do arquivo azure-pipelines.yml na raiz do repositório.
 
 3. Conecte Sua Conta do Azure:
-   No Project Settings do Azure DevOps, vá até Service Connections e crie uma nova conexão com a sua conta do Azure, nomeando-a como MinhaConexaoAzure.
+   No Project Settings do Azure DevOps, vá até Service Connections e crie uma nova conexão com a sua conta do Azure, nomeando-a como MyazureSubscription.
 
 4. Execução da Pipeline:
    A pipeline executará as seguintes etapas:
