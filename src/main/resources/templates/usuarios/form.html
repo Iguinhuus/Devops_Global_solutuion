@@ -159,8 +159,8 @@
 <div class="form-content-wrapper">
     <div class="data-entry-card">
         <h3 class="form-title" th:text="${#strings.isEmpty(usuarioDTO.id) ? 'Novo Registro de Usuário' : 'Editar Informações do Usuário'}"></h3>
-        <form th:action="@{/usuario/salvar-registro}" th:object="${usuarioDTO}" method="post">
-            <input type="hidden" th:field="*{id}" />
+        <form th:action="@{/usuarios/salvar}" th:object="${usuarioDTO}" method="post">
+        <input type="hidden" th:field="*{id}" />
 
             <div class="mb-3 form-group-custom">
                 <label for="nome" class="form-label">Nome Completo:</label>
@@ -178,7 +178,7 @@
             </div>
 
             <div class="form-actions">
-                <a href="/gestao-de-usuarios" class="btn btn-action-form btn-cancel-custom">
+                <a href="/usuarios" class="btn btn-action-form btn-cancel-custom">
                     <i class="fas fa-times-circle"></i> Cancelar
                 </a>
                 <button type="submit" class="btn btn-action-form btn-save-custom">
