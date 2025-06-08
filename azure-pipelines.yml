@@ -10,27 +10,27 @@ pool:
 
 variables:
   - name: rm
-    value: rm554227
+    value: rm553434
   - name: location
     value: eastus
   - name: resourceGroup
-    value: rg-SafeRoute
+    value: rg-RotaSegDevops
   - name: service-plan
-    value: plan-SafeRoute
+    value: plan-RotaSegDevops
   - name: app-name
-    value: SafeRoute-$(rm)
+    value: RotaSegDevops-$(rm)
   - name: runtime
     value: JAVA:17-java17
   - name: sku
     value: F1
   - name: nome-artefato
-    value: SafeRoute
+    value: RotaSegDevops
 
 stages:
   - stage: CriarInfra
     jobs:
       - job: criaWebApp
-        displayName: Criar ou atualizar o Serviço de Aplicativo
+        displayName: Criaçao do app e subindo para pipeline
         steps:
           - task: AzureCLI@2
             inputs:
